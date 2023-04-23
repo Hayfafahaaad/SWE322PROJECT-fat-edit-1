@@ -96,19 +96,11 @@
                 
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-session">
-                        <a href="schedule.php" class="non-style-link-menu"><div><p class="menu-text">Scheduled Sessions</p></div></a>
+                        <a href="mybookings.php" class="non-style-link-menu"><div><p class="menu-text">My Appointments</p></div></a>
                     </td>
                 </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-appoinment">
-                        <a href="appointment.php" class="non-style-link-menu"><div><p class="menu-text">My Bookings</p></a></div>
-                    </td>
-                </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-settings">
-                        <a href="settings.php" class="non-style-link-menu"><div><p class="menu-text">Settings</p></a></div>
-                    </td>
-                </tr>
+                
+                
                 
             </table>
         </div>
@@ -177,7 +169,7 @@
                                 <p>  clinic : </p>
                                 <br> 
                                 <form action=''  method="GET" > 
-                            <select type='text' name="choose" required> 
+                            <select type='text' name="specialty" id=""  required> 
                                 <option value='dentist'> dentist</option> 
                                 <option value = 'pediatrician'> pediatrician</option> 
                                 <option value='eye doctor'> eye doctor</option> 
@@ -185,21 +177,59 @@
                                 <option value='cardiologist'> cardiologist</option> 
                                 
                                          </select >
-                                         <input type='submit' name ='specialty'> </input> 
+                                       <input type='submit' name ='clinic'> </input> 
                                         </form> 
                                          </br> </br> 
 
                                 <p> doctor: </p> 
                                 
-                            <select name="search"  placeholder="select a doctor" style="width:45%;"required>
+                           
                               <?php   
-                               if(isset($_GET['specialty'])){
-                                $specialty = $_GET['choose']; 
+                               if(isset($_GET['clinic'])){
+                                $specialty = $_GET['specialty']; 
                                 echo $specialty; 
-                               }else { echo 'error here';}
-                               
-                                $doc_query = "select  docname,email,type from doctors ";
+
+                                $doc_query = "select  * from doctors where type = '$specialty' ; ";
                                 $doclist = mysqli_query($con, $doc_query);
+                                    
+                                if($doclist){
+                                    echo "<table >"; 
+                                     echo "<tr>"; 
+                                    echo "<td> Doctor name  </td>" ; 
+                                    echo "<td> Email </td>" ; 
+                                    echo "<td> specialty </td>" ; 
+                                    echo "</tr>";
+
+   
+                                
+
+                                while($row = mysqli_fetch_row($doclist)){
+                                    $_SESSION["selected_doc"] = ''; 
+                                    echo "<tr>" ; 
+                                    echo "<td>". $row[1]."</td>";
+                                    echo "<td>". $row[2]."</td>";
+                                    echo "<td>". $row[3]."</td>";
+                                    echo "<td> <form name='' action='slots.php' method='GET'> <input type='submit' name='selected_doc' value='$row[0]'></input>  </form>  </td> ";
+                                    
+                                    echo "</tr>" ; 
+                                }
+                             echo "</table>";
+
+
+                             // do the same thig but with a select 
+
+
+
+
+
+
+
+
+
+                               }else { echo ' error in doctor table here';}
+                               
+                               
+                            }
                                 
                                 /*
                                 for ($i=0;$i<mysqli_num_rows('doclist');$y++){
@@ -209,16 +239,11 @@
                                     echo "<option value='$doc'><br/>";
                                 }*/
 
-                                while($row = mysqli_fetch_row($doclist)){
-                                   
-                                    echo "<option value=".$row[0].$row[1]. $row[2]." >".$row[0].$row[1]. $row[2]. " </option>";
-                                   
-                                   
-                                } 
+                                
                            
 
                                 ?>
-                                 </select> 
+                                 
                            
                                 
                             
@@ -256,7 +281,7 @@
                                                     <div  class="dashboard-items"  style="padding:20px;margin:auto;width:95%;display: flex">
                                                         <div>
                                                                 <div class="h1-dashboard">
-                                                                    <?php    echo $doctorrow->num_rows  ?>
+                                                                  /  <?php  //  echo $doctorrow->num_rows  ?>
                                                                 </div><br>
                                                                 <div class="h3-dashboard">
                                                                     All Doctors &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
