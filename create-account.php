@@ -1,4 +1,6 @@
-<?php      
+<?php
+
+     
     include('connection.php');  
     session_start();
 
@@ -6,7 +8,7 @@ if(isset($_POST['signup'])){
 
     $email = $_POST["newemail"];  
    // $password = $_POST["password"];  
-    $name = $_POST["fname"] . $_POST["lname"]; ; 
+    $name = $_POST["fname"] . "  " $_POST["lname"]; ; 
     $age = $_POST["age"]; 
     $phone = $_POST["phone"]; 
     $insurance = $_POST["insurance"]; 
@@ -39,9 +41,11 @@ if(isset($_POST['signup'])){
             
             
                 if($result){
-                    echo "<div class='form'>
+                    echo "
+                               
+                    <div class='form'>
             <h3>You are registered successfully.</h3>
-            <br/>Click here to <a href='login.php'>Login</a></div>";
+            <br/>Click here to <a href='login.php'>Login</a></div>" ;
                 }
                 
             }

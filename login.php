@@ -22,14 +22,9 @@
     session_start();
 
     $_SESSION["user"]="";
-    $_SESSION["usertype"]="";
-//$_SESSION["user_id"] = "";
+   
 
-    // Set the new timezone
-   // date_default_timezone_set('Asia/Kolkata');
-   // $date = date('Y-m-d');
 
-    //$_SESSION["date"]=$date;
     
 
     //import database
@@ -79,12 +74,13 @@ if(isset($_POST['Login'])){
                     header('location: patient/index.php');
 
                 }else{
-                    $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+                    $error='<label for="" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+                        echo $error; 
                 }
 
           
         }   else{
-        echo '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">We cant found any acount for this email.</label>';
+        echo '<label for="" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">We cant find any acount for this email.</label>';
     }
 
       
@@ -113,7 +109,7 @@ if(isset($_POST['Login'])){
                 </td>
             </tr>
             <tr>
-                <form action="" method="POST" >
+                <form name= "login_form" action="" method="POST" >
                 <td class="label-td">
                     <label for="useremail" class="form-label">Email: </label>
                 </td>
@@ -138,9 +134,7 @@ if(isset($_POST['Login'])){
 
             <tr>
                 <td><br>
-                <?php 
-               // echo $error 
-                ?>
+                
                 </td>
             </tr>
 

@@ -85,14 +85,10 @@
                 </tr>
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-home menu-active menu-icon-home-active" >
-                        <a href="index.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Home</p></a></div></a>
+                        <a href="..\index.html" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Home</p></a></div></a>
                     </td>
                 </tr>
-                <tr class="menu-row">
-                    <td class="menu-btn menu-icon-doctor">
-                        <a href="doctors.php" class="non-style-link-menu"><div><p class="menu-text">All Doctors</p></a></div>
-                    </td>
-                </tr>
+                
                 
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-session">
@@ -127,13 +123,7 @@
                                 $today = date('Y-m-d');
                                 echo $today;
 
-                                /*
-                                $patientrow = $database->query("select  * from  patient;");
-                                $doctorrow = $database->query("select  * from  doctor;");
-                                $appointmentrow = $database->query("select  * from  appointment where appodate>='$today';");
-                                $schedulerow = $database->query("select  * from  schedule where scheduledate='$today';");
-
-                                    */
+                         
                                 ?>
                                 </p>
                             </td>
@@ -151,23 +141,22 @@
                     <tr>
                         <td >
                             <h3>Welcome!</h3>
-                            <h1><?php echo $_SESSION['user']  ?>.</h1>
-                            <p>Haven't any idea about doctors? no problem let's jumping to 
-                                <a href="doctors.php" ><b>All Doctors</b></a> section or 
-                                <a href="schedule.php" ><b>Sessions</b> </a><br>
-                                Track your past and future appointments history.<br>Also find out the expected arrival time of your doctor or medical consultant.<br><br>
+                            <h1><?php echo $_SESSION['name']  ?>.</h1>
+                            <p>welcome to your dashboard, here you can book , delete and view all of your appointments<br>
+                              <br><br><br>
                             </p>
+
                             <p>age : <?php echo $_SESSION['age']  ?>.</p>
                             <p>phone  : <?php echo $_SESSION['phone']  ?>.</p>
                             <p>insurance : <?php echo $_SESSION['insurance']  ?>.</p>
                            
                             
-                            <h3>book an appointment with one of our doctors today! </h3> 
-                           <!-- <form action="" method="post" style="display: flex"> --> 
+                            <h3>Book an appointment with one of our doctors today! </h3> 
+                           
 
 
-                                <p>  clinic : </p>
-                                <br> 
+                                <p>  choose a clinic : </p>
+                                
                                 <form action=''  method="GET" > 
                             <select type='text' name="specialty" id=""  required> 
                                 <option value='dentist'> dentist</option> 
@@ -181,7 +170,7 @@
                                         </form> 
                                          </br> </br> 
 
-                                <p> doctor: </p> 
+                            
                                 
                            
                               <?php   
@@ -193,6 +182,7 @@
                                 $doclist = mysqli_query($con, $doc_query);
                                     
                                 if($doclist){
+                                    echo "<p> choose a doctor: </p> " ; 
                                     echo "<table >"; 
                                      echo "<tr>"; 
                                     echo "<td> Doctor name  </td>" ; 
@@ -209,7 +199,7 @@
                                     echo "<td>". $row[1]."</td>";
                                     echo "<td>". $row[2]."</td>";
                                     echo "<td>". $row[3]."</td>";
-                                    echo "<td> <form name='' action='slots.php' method='GET'> <input type='submit' name='selected_doc' value='$row[0]'></input>  </form>  </td> ";
+                                    echo "<td> <form name='' action='slots.php' method='GET'> <button type='submit' name='selected_doc' value='$row[0]'>BOOK APPOINTMENT </button>  </form>  </td> ";
                                     
                                     echo "</tr>" ; 
                                 }
@@ -294,7 +284,7 @@
                                                     <div  class="dashboard-items"  style="padding:20px;margin:auto;width:95%;display: flex;">
                                                         <div>
                                                                 <div class="h1-dashboard">
-                                                                    <?php    echo $patientrow->num_rows  ?>
+                                                                    <?php  //  echo $patientrow->num_rows  ?>
                                                                 </div><br>
                                                                 <div class="h3-dashboard">
                                                                     All Patients &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -309,7 +299,7 @@
                                                     <div  class="dashboard-items"  style="padding:20px;margin:auto;width:95%;display: flex; ">
                                                         <div>
                                                                 <div class="h1-dashboard" >
-                                                                    <?php    echo $appointmentrow ->num_rows  ?>
+                                                                    <?php   // echo $appointmentrow ->num_rows  ?>
                                                                 </div><br>
                                                                 <div class="h3-dashboard" >
                                                                     NewBooking &nbsp;&nbsp;
@@ -324,7 +314,7 @@
                                                     <div  class="dashboard-items"  style="padding:20px;margin:auto;width:95%;display: flex;padding-top:21px;padding-bottom:21px;">
                                                         <div>
                                                                 <div class="h1-dashboard">
-                                                                    <?php    echo $schedulerow ->num_rows  ?>
+                                                                    <?php  //  echo $schedulerow ->num_rows  ?>
                                                                 </div><br>
                                                                 <div class="h3-dashboard" style="font-size: 15px">
                                                                     Today Sessions

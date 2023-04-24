@@ -63,7 +63,7 @@ echo "<table border-style='solid'>";
      while($row2 = mysqli_fetch_row($result2)){
         if($row2[2] == NULL ){
          $time = $row2[0];
-
+                    // send the id of the selected appointment to confirm.php
             echo  "<td><form name='' action='confirm.php' method='GET'> <button type='submit' name='selected_slot' value=' $row2[1]'> $row2[0].</input> </form> </td>" ;
             } else {
                 echo "<td>unavailable</td>";  continue; }

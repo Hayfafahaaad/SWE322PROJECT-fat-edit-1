@@ -12,12 +12,8 @@
     
 </head>
 <body>
-<?php
-
-session_start();
 
 
-?>
 
 
     <center>
@@ -30,7 +26,7 @@ session_start();
                 </td>
             </tr>
             <tr>
-            <form name="f2" action = "authentication.php"  method = "POST">  
+            <form name="f2" action = "create-account.php"  method = "POST">  
                 <td class="label-td" colspan="2">
                     <label for="name" class="form-label">Name: </label>
                 </td>
@@ -56,30 +52,6 @@ session_start();
                 </td>
             </tr>
 
-          <!-- ----------- NIC # AND BIRTHDATE NOT INCLUDED
-             <tr>
-                <td class="label-td" colspan="2">
-                    <label for="nic" class="form-label">NIC: </label>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-td" colspan="2">
-                    <input type="text" name="nic" class="input-text" placeholder="NIC Number" required>
-                </td>
-            </tr>   
-
-            
-            <tr>
-                <td class="label-td" colspan="2">
-                    <label for="dob" class="form-label">Date of Birth: </label>
-                </td>
-            </tr>
-              BIRTH DATE 
-                <tr>
-                <td class="label-td" colspan="2">
-                    <input type="date" name="dob" class="input-text" required>
-                </td>
-            </tr> --> 
             <tr>
             <td class="label-td" colspan="2">
                     <label for="phone" class="form-label">Phone Number: </label>
@@ -162,9 +134,6 @@ session_start();
 </center>
 
 
-<?php
-        include('connection.php'); 
-       
-        ?>
+
 </body>
 </html>
