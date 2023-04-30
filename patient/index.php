@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,9 @@
         .sub-table,.anime{
             animation: transitionIn-Y-bottom 0.5s;
         }
+        
+       
+
     </style>
     
     
@@ -67,25 +71,24 @@
                     <td style="padding:10px" colspan="2">
                         <table border="0" class="profile-container">
                             <tr>
-                                <td width="30%" style="padding-left:20px" >
-                                    <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
+                                <td width="30%" style="padding-left:21px" >
                                 </td>
                                 <td style="padding:0px;margin:0px;">
                                     <p class="profile-title"><?php echo  $_SESSION['name']  ?>..</p>
                                     <p class="profile-subtitle"><?php echo $_SESSION['user']  ?></p>
+                                    <p class="profile-subtitle">Age: <?php echo $_SESSION['age']  ?></p>
+                                    <p class="profile-subtitle">Phone: <?php echo $_SESSION['phone']  ?></p>
+                                    <p class="profile-subtitle">Insurance: <?php echo $_SESSION['insurance']  ?></p>
                                 </td>
                             </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <a href="../logout.php" ><input type="button" value="Log out" class="logout-btn btn-primary-soft btn"></a>
-                                </td>
-                            </tr>
+
                     </table>
                     </td>
                 </tr>
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-home menu-active menu-icon-home-active" >
                         <a href="..\index.html" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Home</p></a></div></a>
+                        
                     </td>
                 </tr>
                 
@@ -95,6 +98,11 @@
                         <a href="mybookings.php" class="non-style-link-menu"><div><p class="menu-text">My Appointments</p></div></a>
                     </td>
                 </tr>
+                <tr>
+                                <td class="menu-btn menu-icon-session">
+                                    <a href="../logout.php" class="non-style-link-menu"><div><p class="menu-text">Log Out</p></div></a>
+                                </td>
+                            </tr>
                 
                 
                 
@@ -118,7 +126,7 @@
                                 </p>
                                 <p class="heading-sub12" style="padding: 0;margin: 0;">
                                     <?php 
-                                date_default_timezone_set('Asia/Kolkata');
+                                date_default_timezone_set('Asia/Riyadh');
         
                                 $today = date('Y-m-d');
                                 echo $today;
@@ -128,7 +136,6 @@
                                 </p>
                             </td>
                             <td width="10%">
-                                <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../img/calendar.svg" width="100%"></button>
                             </td>
         
         
@@ -142,31 +149,30 @@
                         <td >
                             <h3>Welcome!</h3>
                             <h1><?php echo $_SESSION['name']  ?>.</h1>
-                            <p>welcome to your dashboard, here you can book , delete and view all of your appointments<br>
+                            <p>Welcome to your dashboard, here you can book, delete and view all of your appointments<br>
                               <br><br><br>
-                            </p>
-
-                            <p>age : <?php echo $_SESSION['age']  ?>.</p>
-                            <p>phone  : <?php echo $_SESSION['phone']  ?>.</p>
-                            <p>insurance : <?php echo $_SESSION['insurance']  ?>.</p>
+             
                            
                             
                             <h3>Book an appointment with one of our doctors today! </h3> 
                            
 
 
-                                <p>  choose a clinic : </p>
+                                <h4>  Choose a clinic: </h4>
                                 
                                 <form action=''  method="GET" > 
+                                <label class="custom-select">
                             <select type='text' name="specialty" id=""  required> 
                                 <option value='dentist'> dentist</option> 
                                 <option value = 'pediatrician'> pediatrician</option> 
                                 <option value='eye doctor'> eye doctor</option> 
                                 <option value='dermatoligist'> dermatoligist</option> 
                                 <option value='cardiologist'> cardiologist</option> 
-                                
                                          </select >
-                                       <input type='submit' name ='clinic'> </input> 
+                                         </label>
+                                     <p>
+</p>
+                                        <input type='submit' name ='clinic' class="sub-btn btn-primary-soft btn"> </input> 
                                         </form> 
                                          </br> </br> 
 
@@ -176,34 +182,44 @@
                               <?php   
                                if(isset($_GET['clinic'])){
                                 $specialty = $_GET['specialty']; 
-                                echo $specialty; 
+                                
 
                                 $doc_query = "select  * from doctors where type = '$specialty' ; ";
                                 $doclist = mysqli_query($con, $doc_query);
                                     
                                 if($doclist){
-                                    echo "<p> choose a doctor: </p> " ; 
-                                    echo "<table >"; 
-                                     echo "<tr>"; 
+                                    echo "<h4> Choose a doctor: </h4> " ; 
+                                    echo "<table border='2' class='gridtable'><tr>";
+                                    
                                     echo "<td> Doctor name  </td>" ; 
                                     echo "<td> Email </td>" ; 
                                     echo "<td> specialty </td>" ; 
                                     echo "</tr>";
-
+                                    
    
                                 
 
                                 while($row = mysqli_fetch_row($doclist)){
                                     $_SESSION["selected_doc"] = ''; 
+                                    
                                     echo "<tr>" ; 
-                                    echo "<td>". $row[1]."</td>";
+                                    echo "<td>". $row[1];
+                                    echo "<form name='' action='slots.php' method='GET'><button type='submit' name='selected_doc' class='book-btn btn-primary-soft btn' value='$row[0]'>Book Appointment</button> </form> ";
+                                    echo "</td>";
                                     echo "<td>". $row[2]."</td>";
+                                    
                                     echo "<td>". $row[3]."</td>";
-                                    echo "<td> <form name='' action='slots.php' method='GET'> <button type='submit' name='selected_doc' value='$row[0]'>BOOK APPOINTMENT </button>  </form>  </td> ";
+
                                     
                                     echo "</tr>" ; 
+                           
                                 }
+                                
+                                
                              echo "</table>";
+                              
+                            
+                             
 
 
                              // do the same thig but with a select 
@@ -228,13 +244,14 @@
                                     
                                     echo "<option value='$doc'><br/>";
                                 }*/
-
+                                
                                 
                            
 
                                 ?>
-                                 
-                           
+                                
+                                
+
                                 
                             
                             <br>
